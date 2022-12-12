@@ -45,8 +45,8 @@ def get_split_dataset_info(txt_list, val_percentage):
 
 
 class Dataset(data.Dataset):
-    def __init__(self, names, labels, img_transformer=None, dataset='PACS'):
-        self.data_path = f'../../Datasets/{dataset}'
+    def __init__(self, names, labels, img_transformer=None, dataset='PACS', path='Dataset/'):
+        self.data_path = path + dataset
 
         self.names = names
         self.labels = labels

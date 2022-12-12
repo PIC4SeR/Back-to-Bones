@@ -1,0 +1,1166 @@
+Target domain: CALTECH
+Dataset size: train 8370, val 930, test 1415, alternative_loader 1
+Step size: 24
+Methodology: MMD
+Training: model=convit_base, bs=10, lr=1e-05, scheduler=cos, epochs=30, cuda=0, target=CALTECH
+New epoch - lr: 1e-05
+Accuracies on val: class : 78.39
+Accuracies on test: class : 90.60
+New epoch - lr: 9.97534852915723e-06
+Accuracies on val: class : 81.83
+Accuracies on test: class : 98.30
+New epoch - lr: 9.901664203302126e-06
+Accuracies on val: class : 83.12
+Accuracies on test: class : 98.80
+New epoch - lr: 9.779754323328192e-06
+Accuracies on val: class : 83.33
+Accuracies on test: class : 99.36
+New epoch - lr: 9.610954559391703e-06
+Accuracies on val: class : 82.26
+Accuracies on test: class : 99.15
+New epoch - lr: 9.397114317029975e-06
+Accuracies on val: class : 83.76
+Accuracies on test: class : 99.01
+New epoch - lr: 9.140576474687265e-06
+Accuracies on val: class : 84.41
+Accuracies on test: class : 98.59
+New epoch - lr: 8.844151714648276e-06
+Accuracies on val: class : 85.16
+Accuracies on test: class : 98.37
+New epoch - lr: 8.511087728614863e-06
+Accuracies on val: class : 84.09
+Accuracies on test: class : 98.94
+New epoch - lr: 8.14503363531613e-06
+Accuracies on val: class : 84.73
+Accuracies on test: class : 97.88
+New epoch - lr: 7.75e-06
+Accuracies on val: class : 85.16
+Accuracies on test: class : 98.37
+New epoch - lr: 7.3303148938411025e-06
+Accuracies on val: class : 85.16
+Accuracies on test: class : 98.23
+New epoch - lr: 6.8905764746872645e-06
+Accuracies on val: class : 84.62
+Accuracies on test: class : 97.60
+New epoch - lr: 6.4356026086799176e-06
+Accuracies on val: class : 83.98
+Accuracies on test: class : 97.67
+New epoch - lr: 5.970378084704441e-06
+Accuracies on val: class : 84.84
+Accuracies on test: class : 97.74
+New epoch - lr: 5.5e-06
+Accuracies on val: class : 84.30
+Accuracies on test: class : 98.16
+New epoch - lr: 5.029621915295559e-06
+Accuracies on val: class : 84.52
+Accuracies on test: class : 97.81
+New epoch - lr: 4.5643973913200805e-06
+Accuracies on val: class : 84.30
+Accuracies on test: class : 98.02
+New epoch - lr: 4.109423525312735e-06
+Accuracies on val: class : 84.73
+Accuracies on test: class : 97.74
+New epoch - lr: 3.6696851061588985e-06
+Accuracies on val: class : 84.41
+Accuracies on test: class : 98.02
+New epoch - lr: 3.25e-06
+Accuracies on val: class : 84.52
+Accuracies on test: class : 97.95
+New epoch - lr: 2.8549663646838704e-06
+Accuracies on val: class : 84.52
+Accuracies on test: class : 97.67
+New epoch - lr: 2.488912271385139e-06
+Accuracies on val: class : 84.62
+Accuracies on test: class : 97.88
+New epoch - lr: 2.1558482853517265e-06
+Accuracies on val: class : 84.52
+Accuracies on test: class : 97.88
+New epoch - lr: 1.8594235253127369e-06
+Accuracies on val: class : 84.09
+Accuracies on test: class : 97.74
+New epoch - lr: 1.6028856829700258e-06
+Accuracies on val: class : 83.98
+Accuracies on test: class : 98.02
+New epoch - lr: 1.3890454406082957e-06
+Accuracies on val: class : 84.09
+Accuracies on test: class : 97.67
+New epoch - lr: 1.2202456766718092e-06
+Accuracies on val: class : 84.30
+Accuracies on test: class : 97.39
+New epoch - lr: 1.0983357966978747e-06
+Accuracies on val: class : 84.41
+Accuracies on test: class : 97.74
+New epoch - lr: 1.0246514708427699e-06
+Accuracies on val: class : 84.09
+Accuracies on test: class : 97.67
+Best val 0.851613, corresponding test 0.983746 - best test: 0.99364, best epoch: 7
+It took 5763.97
+Target domain: CALTECH
+Dataset size: train 8370, val 930, test 1415, alternative_loader 1
+Step size: 24
+Methodology: MMD
+Training: model=convit_base, bs=10, lr=1e-05, scheduler=cos, epochs=30, cuda=0, target=CALTECH
+New epoch - lr: 1e-05
+Accuracies on val: class : 77.85
+Accuracies on test: class : 93.85
+New epoch - lr: 9.97534852915723e-06
+Accuracies on val: class : 81.08
+Accuracies on test: class : 98.80
+New epoch - lr: 9.901664203302126e-06
+Accuracies on val: class : 81.08
+Accuracies on test: class : 99.15
+New epoch - lr: 9.779754323328192e-06
+Accuracies on val: class : 80.00
+Accuracies on test: class : 99.22
+New epoch - lr: 9.610954559391703e-06
+Accuracies on val: class : 82.26
+Accuracies on test: class : 99.01
+New epoch - lr: 9.397114317029975e-06
+Accuracies on val: class : 83.55
+Accuracies on test: class : 98.87
+New epoch - lr: 9.140576474687265e-06
+Accuracies on val: class : 83.33
+Accuracies on test: class : 98.37
+New epoch - lr: 8.844151714648276e-06
+Accuracies on val: class : 83.23
+Accuracies on test: class : 98.09
+New epoch - lr: 8.511087728614863e-06
+Accuracies on val: class : 83.33
+Accuracies on test: class : 97.95
+New epoch - lr: 8.14503363531613e-06
+Accuracies on val: class : 82.37
+Accuracies on test: class : 97.95
+New epoch - lr: 7.75e-06
+Accuracies on val: class : 83.76
+Accuracies on test: class : 97.10
+New epoch - lr: 7.3303148938411025e-06
+Accuracies on val: class : 83.55
+Accuracies on test: class : 97.67
+New epoch - lr: 6.8905764746872645e-06
+Accuracies on val: class : 82.80
+Accuracies on test: class : 97.60
+New epoch - lr: 6.4356026086799176e-06
+Accuracies on val: class : 83.44
+Accuracies on test: class : 96.89
+New epoch - lr: 5.970378084704441e-06
+Accuracies on val: class : 82.58
+Accuracies on test: class : 97.03
+New epoch - lr: 5.5e-06
+Accuracies on val: class : 83.76
+Accuracies on test: class : 97.60
+New epoch - lr: 5.029621915295559e-06
+Accuracies on val: class : 83.12
+Accuracies on test: class : 97.17
+New epoch - lr: 4.5643973913200805e-06
+Accuracies on val: class : 82.80
+Accuracies on test: class : 97.17
+New epoch - lr: 4.109423525312735e-06
+Accuracies on val: class : 82.69
+Accuracies on test: class : 97.31
+New epoch - lr: 3.6696851061588985e-06
+Accuracies on val: class : 84.62
+Accuracies on test: class : 97.31
+New epoch - lr: 3.25e-06
+Accuracies on val: class : 83.12
+Accuracies on test: class : 97.24
+New epoch - lr: 2.8549663646838704e-06
+Accuracies on val: class : 83.98
+Accuracies on test: class : 97.17
+New epoch - lr: 2.488912271385139e-06
+Accuracies on val: class : 83.01
+Accuracies on test: class : 97.17
+New epoch - lr: 2.1558482853517265e-06
+Accuracies on val: class : 83.33
+Accuracies on test: class : 97.10
+New epoch - lr: 1.8594235253127369e-06
+Accuracies on val: class : 84.30
+Accuracies on test: class : 97.17
+New epoch - lr: 1.6028856829700258e-06
+Accuracies on val: class : 83.98
+Accuracies on test: class : 96.96
+New epoch - lr: 1.3890454406082957e-06
+Accuracies on val: class : 83.44
+Accuracies on test: class : 97.10
+New epoch - lr: 1.2202456766718092e-06
+Accuracies on val: class : 83.87
+Accuracies on test: class : 97.10
+New epoch - lr: 1.0983357966978747e-06
+Accuracies on val: class : 84.41
+Accuracies on test: class : 97.10
+New epoch - lr: 1.0246514708427699e-06
+Accuracies on val: class : 84.19
+Accuracies on test: class : 97.03
+Best val 0.846237, corresponding test 0.973145 - best test: 0.992226, best epoch: 19
+It took 5765.1
+Target domain: CALTECH
+Dataset size: train 8370, val 930, test 1415, alternative_loader 1
+Step size: 24
+Methodology: MMD
+Training: model=convit_base, bs=10, lr=1e-05, scheduler=cos, epochs=30, cuda=0, target=CALTECH
+New epoch - lr: 1e-05
+Accuracies on val: class : 77.10
+Accuracies on test: class : 85.30
+New epoch - lr: 9.97534852915723e-06
+Accuracies on val: class : 78.39
+Accuracies on test: class : 96.04
+New epoch - lr: 9.901664203302126e-06
+Accuracies on val: class : 80.11
+Accuracies on test: class : 98.23
+New epoch - lr: 9.779754323328192e-06
+Accuracies on val: class : 80.54
+Accuracies on test: class : 98.80
+New epoch - lr: 9.610954559391703e-06
+Accuracies on val: class : 80.75
+Accuracies on test: class : 99.01
+New epoch - lr: 9.397114317029975e-06
+Accuracies on val: class : 81.72
+Accuracies on test: class : 99.01
+New epoch - lr: 9.140576474687265e-06
+Accuracies on val: class : 81.40
+Accuracies on test: class : 98.94
+New epoch - lr: 8.844151714648276e-06
+Accuracies on val: class : 82.26
+Accuracies on test: class : 98.87
+New epoch - lr: 8.511087728614863e-06
+Accuracies on val: class : 82.58
+Accuracies on test: class : 98.80
+New epoch - lr: 8.14503363531613e-06
+Accuracies on val: class : 81.83
+Accuracies on test: class : 98.16
+New epoch - lr: 7.75e-06
+Accuracies on val: class : 82.69
+Accuracies on test: class : 98.09
+New epoch - lr: 7.3303148938411025e-06
+Accuracies on val: class : 82.15
+Accuracies on test: class : 98.37
+New epoch - lr: 6.8905764746872645e-06
+Accuracies on val: class : 82.15
+Accuracies on test: class : 98.37
+New epoch - lr: 6.4356026086799176e-06
+Accuracies on val: class : 81.61
+Accuracies on test: class : 98.16
+New epoch - lr: 5.970378084704441e-06
+Accuracies on val: class : 82.37
+Accuracies on test: class : 97.81
+New epoch - lr: 5.5e-06
+Accuracies on val: class : 81.72
+Accuracies on test: class : 98.09
+New epoch - lr: 5.029621915295559e-06
+Accuracies on val: class : 82.15
+Accuracies on test: class : 97.53
+New epoch - lr: 4.5643973913200805e-06
+Accuracies on val: class : 82.04
+Accuracies on test: class : 98.16
+New epoch - lr: 4.109423525312735e-06
+Accuracies on val: class : 82.69
+Accuracies on test: class : 97.88
+New epoch - lr: 3.6696851061588985e-06
+Accuracies on val: class : 82.04
+Accuracies on test: class : 97.95
+New epoch - lr: 3.25e-06
+Accuracies on val: class : 81.72
+Accuracies on test: class : 97.88
+New epoch - lr: 2.8549663646838704e-06
+Accuracies on val: class : 82.26
+Accuracies on test: class : 97.88
+New epoch - lr: 2.488912271385139e-06
+Accuracies on val: class : 81.94
+Accuracies on test: class : 97.67
+New epoch - lr: 2.1558482853517265e-06
+Accuracies on val: class : 81.83
+Accuracies on test: class : 97.53
+New epoch - lr: 1.8594235253127369e-06
+Accuracies on val: class : 82.26
+Accuracies on test: class : 97.74
+New epoch - lr: 1.6028856829700258e-06
+Accuracies on val: class : 82.47
+Accuracies on test: class : 97.81
+New epoch - lr: 1.3890454406082957e-06
+Accuracies on val: class : 82.69
+Accuracies on test: class : 97.88
+New epoch - lr: 1.2202456766718092e-06
+Accuracies on val: class : 82.04
+Accuracies on test: class : 97.81
+New epoch - lr: 1.0983357966978747e-06
+Accuracies on val: class : 81.72
+Accuracies on test: class : 97.88
+New epoch - lr: 1.0246514708427699e-06
+Accuracies on val: class : 82.47
+Accuracies on test: class : 97.74
+Best val 0.826882, corresponding test 0.980919 - best test: 0.990106, best epoch: 10
+It took 5769.86
+Target domain: LABELME
+Dataset size: train 7254, val 806, test 2656, alternative_loader 1
+Step size: 24
+Methodology: MMD
+Training: model=convit_base, bs=10, lr=1e-05, scheduler=cos, epochs=30, cuda=0, target=LABELME
+New epoch - lr: 1e-05
+Accuracies on val: class : 84.62
+Accuracies on test: class : 63.48
+New epoch - lr: 9.97534852915723e-06
+Accuracies on val: class : 87.47
+Accuracies on test: class : 66.08
+New epoch - lr: 9.901664203302126e-06
+Accuracies on val: class : 87.59
+Accuracies on test: class : 65.96
+New epoch - lr: 9.779754323328192e-06
+Accuracies on val: class : 88.83
+Accuracies on test: class : 66.68
+New epoch - lr: 9.610954559391703e-06
+Accuracies on val: class : 88.21
+Accuracies on test: class : 66.94
+New epoch - lr: 9.397114317029975e-06
+Accuracies on val: class : 89.33
+Accuracies on test: class : 66.38
+New epoch - lr: 9.140576474687265e-06
+Accuracies on val: class : 88.96
+Accuracies on test: class : 67.09
+New epoch - lr: 8.844151714648276e-06
+Accuracies on val: class : 88.46
+Accuracies on test: class : 66.72
+New epoch - lr: 8.511087728614863e-06
+Accuracies on val: class : 89.70
+Accuracies on test: class : 66.60
+New epoch - lr: 8.14503363531613e-06
+Accuracies on val: class : 89.21
+Accuracies on test: class : 68.34
+New epoch - lr: 7.75e-06
+Accuracies on val: class : 90.07
+Accuracies on test: class : 66.11
+New epoch - lr: 7.3303148938411025e-06
+Accuracies on val: class : 90.07
+Accuracies on test: class : 66.98
+New epoch - lr: 6.8905764746872645e-06
+Accuracies on val: class : 89.95
+Accuracies on test: class : 66.19
+New epoch - lr: 6.4356026086799176e-06
+Accuracies on val: class : 89.83
+Accuracies on test: class : 67.17
+New epoch - lr: 5.970378084704441e-06
+Accuracies on val: class : 89.83
+Accuracies on test: class : 66.87
+New epoch - lr: 5.5e-06
+Accuracies on val: class : 89.95
+Accuracies on test: class : 67.06
+New epoch - lr: 5.029621915295559e-06
+Accuracies on val: class : 89.95
+Accuracies on test: class : 65.14
+New epoch - lr: 4.5643973913200805e-06
+Accuracies on val: class : 90.07
+Accuracies on test: class : 66.57
+New epoch - lr: 4.109423525312735e-06
+Accuracies on val: class : 89.83
+Accuracies on test: class : 67.55
+New epoch - lr: 3.6696851061588985e-06
+Accuracies on val: class : 90.07
+Accuracies on test: class : 66.42
+New epoch - lr: 3.25e-06
+Accuracies on val: class : 90.20
+Accuracies on test: class : 67.88
+New epoch - lr: 2.8549663646838704e-06
+Accuracies on val: class : 90.20
+Accuracies on test: class : 67.47
+New epoch - lr: 2.488912271385139e-06
+Accuracies on val: class : 90.69
+Accuracies on test: class : 68.03
+New epoch - lr: 2.1558482853517265e-06
+Accuracies on val: class : 90.45
+Accuracies on test: class : 67.43
+New epoch - lr: 1.8594235253127369e-06
+Accuracies on val: class : 90.07
+Accuracies on test: class : 66.98
+New epoch - lr: 1.6028856829700258e-06
+Accuracies on val: class : 90.20
+Accuracies on test: class : 66.68
+New epoch - lr: 1.3890454406082957e-06
+Accuracies on val: class : 89.95
+Accuracies on test: class : 66.98
+New epoch - lr: 1.2202456766718092e-06
+Accuracies on val: class : 90.20
+Accuracies on test: class : 66.75
+New epoch - lr: 1.0983357966978747e-06
+Accuracies on val: class : 90.07
+Accuracies on test: class : 67.17
+New epoch - lr: 1.0246514708427699e-06
+Accuracies on val: class : 90.07
+Accuracies on test: class : 66.75
+Best val 0.906948, corresponding test 0.680346 - best test: 0.683358, best epoch: 22
+It took 5289.25
+Target domain: LABELME
+Dataset size: train 7254, val 806, test 2656, alternative_loader 1
+Step size: 24
+Methodology: MMD
+Training: model=convit_base, bs=10, lr=1e-05, scheduler=cos, epochs=30, cuda=0, target=LABELME
+New epoch - lr: 1e-05
+Accuracies on val: class : 84.62
+Accuracies on test: class : 57.79
+New epoch - lr: 9.97534852915723e-06
+Accuracies on val: class : 87.34
+Accuracies on test: class : 61.56
+New epoch - lr: 9.901664203302126e-06
+Accuracies on val: class : 89.08
+Accuracies on test: class : 64.98
+New epoch - lr: 9.779754323328192e-06
+Accuracies on val: class : 89.83
+Accuracies on test: class : 65.02
+New epoch - lr: 9.610954559391703e-06
+Accuracies on val: class : 90.07
+Accuracies on test: class : 65.25
+New epoch - lr: 9.397114317029975e-06
+Accuracies on val: class : 90.07
+Accuracies on test: class : 65.96
+New epoch - lr: 9.140576474687265e-06
+Accuracies on val: class : 90.57
+Accuracies on test: class : 65.36
+New epoch - lr: 8.844151714648276e-06
+Accuracies on val: class : 90.82
+Accuracies on test: class : 68.00
+New epoch - lr: 8.511087728614863e-06
+Accuracies on val: class : 90.69
+Accuracies on test: class : 66.79
+New epoch - lr: 8.14503363531613e-06
+Accuracies on val: class : 90.07
+Accuracies on test: class : 66.19
+New epoch - lr: 7.75e-06
+Accuracies on val: class : 90.20
+Accuracies on test: class : 66.83
+New epoch - lr: 7.3303148938411025e-06
+Accuracies on val: class : 90.57
+Accuracies on test: class : 67.13
+New epoch - lr: 6.8905764746872645e-06
+Accuracies on val: class : 90.82
+Accuracies on test: class : 66.42
+New epoch - lr: 6.4356026086799176e-06
+Accuracies on val: class : 90.94
+Accuracies on test: class : 67.17
+New epoch - lr: 5.970378084704441e-06
+Accuracies on val: class : 90.82
+Accuracies on test: class : 67.77
+New epoch - lr: 5.5e-06
+Accuracies on val: class : 90.57
+Accuracies on test: class : 67.24
+New epoch - lr: 5.029621915295559e-06
+Accuracies on val: class : 90.57
+Accuracies on test: class : 67.36
+New epoch - lr: 4.5643973913200805e-06
+Accuracies on val: class : 91.19
+Accuracies on test: class : 67.21
+New epoch - lr: 4.109423525312735e-06
+Accuracies on val: class : 91.81
+Accuracies on test: class : 67.85
+New epoch - lr: 3.6696851061588985e-06
+Accuracies on val: class : 91.81
+Accuracies on test: class : 67.58
+New epoch - lr: 3.25e-06
+Accuracies on val: class : 91.94
+Accuracies on test: class : 67.81
+New epoch - lr: 2.8549663646838704e-06
+Accuracies on val: class : 90.94
+Accuracies on test: class : 66.79
+New epoch - lr: 2.488912271385139e-06
+Accuracies on val: class : 91.69
+Accuracies on test: class : 67.32
+New epoch - lr: 2.1558482853517265e-06
+Accuracies on val: class : 90.82
+Accuracies on test: class : 66.68
+New epoch - lr: 1.8594235253127369e-06
+Accuracies on val: class : 91.32
+Accuracies on test: class : 67.92
+New epoch - lr: 1.6028856829700258e-06
+Accuracies on val: class : 91.32
+Accuracies on test: class : 67.24
+New epoch - lr: 1.3890454406082957e-06
+Accuracies on val: class : 91.32
+Accuracies on test: class : 66.72
+New epoch - lr: 1.2202456766718092e-06
+Accuracies on val: class : 91.44
+Accuracies on test: class : 66.83
+New epoch - lr: 1.0983357966978747e-06
+Accuracies on val: class : 91.56
+Accuracies on test: class : 67.24
+New epoch - lr: 1.0246514708427699e-06
+Accuracies on val: class : 91.19
+Accuracies on test: class : 67.28
+Best val 0.919355, corresponding test 0.678087 - best test: 0.67997, best epoch: 20
+It took 5288.64
+Target domain: LABELME
+Dataset size: train 7254, val 806, test 2656, alternative_loader 1
+Step size: 24
+Methodology: MMD
+Training: model=convit_base, bs=10, lr=1e-05, scheduler=cos, epochs=30, cuda=0, target=LABELME
+New epoch - lr: 1e-05
+Accuracies on val: class : 83.62
+Accuracies on test: class : 60.58
+New epoch - lr: 9.97534852915723e-06
+Accuracies on val: class : 86.10
+Accuracies on test: class : 66.34
+New epoch - lr: 9.901664203302126e-06
+Accuracies on val: class : 87.34
+Accuracies on test: class : 65.47
+New epoch - lr: 9.779754323328192e-06
+Accuracies on val: class : 88.59
+Accuracies on test: class : 64.57
+New epoch - lr: 9.610954559391703e-06
+Accuracies on val: class : 87.72
+Accuracies on test: class : 67.36
+New epoch - lr: 9.397114317029975e-06
+Accuracies on val: class : 87.84
+Accuracies on test: class : 67.02
+New epoch - lr: 9.140576474687265e-06
+Accuracies on val: class : 88.34
+Accuracies on test: class : 65.96
+New epoch - lr: 8.844151714648276e-06
+Accuracies on val: class : 88.34
+Accuracies on test: class : 67.24
+New epoch - lr: 8.511087728614863e-06
+Accuracies on val: class : 88.34
+Accuracies on test: class : 67.39
+New epoch - lr: 8.14503363531613e-06
+Accuracies on val: class : 88.96
+Accuracies on test: class : 66.72
+New epoch - lr: 7.75e-06
+Accuracies on val: class : 88.09
+Accuracies on test: class : 67.96
+New epoch - lr: 7.3303148938411025e-06
+Accuracies on val: class : 88.83
+Accuracies on test: class : 67.70
+New epoch - lr: 6.8905764746872645e-06
+Accuracies on val: class : 89.45
+Accuracies on test: class : 67.55
+New epoch - lr: 6.4356026086799176e-06
+Accuracies on val: class : 89.08
+Accuracies on test: class : 66.75
+New epoch - lr: 5.970378084704441e-06
+Accuracies on val: class : 89.21
+Accuracies on test: class : 67.28
+New epoch - lr: 5.5e-06
+Accuracies on val: class : 88.96
+Accuracies on test: class : 67.32
+New epoch - lr: 5.029621915295559e-06
+Accuracies on val: class : 89.21
+Accuracies on test: class : 68.45
+New epoch - lr: 4.5643973913200805e-06
+Accuracies on val: class : 89.45
+Accuracies on test: class : 68.30
+New epoch - lr: 4.109423525312735e-06
+Accuracies on val: class : 89.45
+Accuracies on test: class : 68.37
+New epoch - lr: 3.6696851061588985e-06
+Accuracies on val: class : 89.70
+Accuracies on test: class : 68.26
+New epoch - lr: 3.25e-06
+Accuracies on val: class : 89.33
+Accuracies on test: class : 68.00
+New epoch - lr: 2.8549663646838704e-06
+Accuracies on val: class : 89.70
+Accuracies on test: class : 67.58
+New epoch - lr: 2.488912271385139e-06
+Accuracies on val: class : 89.58
+Accuracies on test: class : 68.11
+New epoch - lr: 2.1558482853517265e-06
+Accuracies on val: class : 89.21
+Accuracies on test: class : 68.26
+New epoch - lr: 1.8594235253127369e-06
+Accuracies on val: class : 89.33
+Accuracies on test: class : 67.77
+New epoch - lr: 1.6028856829700258e-06
+Accuracies on val: class : 89.21
+Accuracies on test: class : 68.34
+New epoch - lr: 1.3890454406082957e-06
+Accuracies on val: class : 89.45
+Accuracies on test: class : 67.88
+New epoch - lr: 1.2202456766718092e-06
+Accuracies on val: class : 89.45
+Accuracies on test: class : 68.00
+New epoch - lr: 1.0983357966978747e-06
+Accuracies on val: class : 89.21
+Accuracies on test: class : 68.15
+New epoch - lr: 1.0246514708427699e-06
+Accuracies on val: class : 88.83
+Accuracies on test: class : 68.37
+Best val 0.897022, corresponding test 0.682605 - best test: 0.684488, best epoch: 19
+It took 5286.93
+Target domain: PASCAL
+Dataset size: train 6606, val 734, test 3376, alternative_loader 1
+Step size: 24
+Methodology: MMD
+Training: model=convit_base, bs=10, lr=1e-05, scheduler=cos, epochs=30, cuda=0, target=PASCAL
+New epoch - lr: 1e-05
+Accuracies on val: class : 75.20
+Accuracies on test: class : 70.23
+New epoch - lr: 9.97534852915723e-06
+Accuracies on val: class : 77.66
+Accuracies on test: class : 72.93
+New epoch - lr: 9.901664203302126e-06
+Accuracies on val: class : 80.11
+Accuracies on test: class : 75.80
+New epoch - lr: 9.779754323328192e-06
+Accuracies on val: class : 80.65
+Accuracies on test: class : 76.33
+New epoch - lr: 9.610954559391703e-06
+Accuracies on val: class : 79.84
+Accuracies on test: class : 78.20
+New epoch - lr: 9.397114317029975e-06
+Accuracies on val: class : 81.34
+Accuracies on test: class : 78.17
+New epoch - lr: 9.140576474687265e-06
+Accuracies on val: class : 80.65
+Accuracies on test: class : 78.67
+New epoch - lr: 8.844151714648276e-06
+Accuracies on val: class : 80.11
+Accuracies on test: class : 78.67
+New epoch - lr: 8.511087728614863e-06
+Accuracies on val: class : 81.06
+Accuracies on test: class : 79.35
+New epoch - lr: 8.14503363531613e-06
+Accuracies on val: class : 80.93
+Accuracies on test: class : 80.60
+New epoch - lr: 7.75e-06
+Accuracies on val: class : 81.47
+Accuracies on test: class : 81.25
+New epoch - lr: 7.3303148938411025e-06
+Accuracies on val: class : 80.93
+Accuracies on test: class : 81.01
+New epoch - lr: 6.8905764746872645e-06
+Accuracies on val: class : 80.93
+Accuracies on test: class : 79.56
+New epoch - lr: 6.4356026086799176e-06
+Accuracies on val: class : 82.02
+Accuracies on test: class : 81.22
+New epoch - lr: 5.970378084704441e-06
+Accuracies on val: class : 81.20
+Accuracies on test: class : 81.90
+New epoch - lr: 5.5e-06
+Accuracies on val: class : 80.79
+Accuracies on test: class : 81.69
+New epoch - lr: 5.029621915295559e-06
+Accuracies on val: class : 80.65
+Accuracies on test: class : 81.01
+New epoch - lr: 4.5643973913200805e-06
+Accuracies on val: class : 81.06
+Accuracies on test: class : 80.86
+New epoch - lr: 4.109423525312735e-06
+Accuracies on val: class : 81.47
+Accuracies on test: class : 81.78
+New epoch - lr: 3.6696851061588985e-06
+Accuracies on val: class : 80.79
+Accuracies on test: class : 81.40
+New epoch - lr: 3.25e-06
+Accuracies on val: class : 81.34
+Accuracies on test: class : 81.69
+New epoch - lr: 2.8549663646838704e-06
+Accuracies on val: class : 81.61
+Accuracies on test: class : 81.61
+New epoch - lr: 2.488912271385139e-06
+Accuracies on val: class : 81.47
+Accuracies on test: class : 81.84
+New epoch - lr: 2.1558482853517265e-06
+Accuracies on val: class : 81.20
+Accuracies on test: class : 82.23
+New epoch - lr: 1.8594235253127369e-06
+Accuracies on val: class : 81.47
+Accuracies on test: class : 82.26
+New epoch - lr: 1.6028856829700258e-06
+Accuracies on val: class : 80.93
+Accuracies on test: class : 81.90
+New epoch - lr: 1.3890454406082957e-06
+Accuracies on val: class : 81.34
+Accuracies on test: class : 82.20
+New epoch - lr: 1.2202456766718092e-06
+Accuracies on val: class : 81.47
+Accuracies on test: class : 82.49
+New epoch - lr: 1.0983357966978747e-06
+Accuracies on val: class : 81.34
+Accuracies on test: class : 82.35
+New epoch - lr: 1.0246514708427699e-06
+Accuracies on val: class : 81.34
+Accuracies on test: class : 82.49
+Best val 0.820163, corresponding test 0.812204 - best test: 0.824941, best epoch: 13
+It took 5024.54
+Target domain: PASCAL
+Dataset size: train 6606, val 734, test 3376, alternative_loader 1
+Step size: 24
+Methodology: MMD
+Training: model=convit_base, bs=10, lr=1e-05, scheduler=cos, epochs=30, cuda=0, target=PASCAL
+New epoch - lr: 1e-05
+Accuracies on val: class : 77.52
+Accuracies on test: class : 67.09
+New epoch - lr: 9.97534852915723e-06
+Accuracies on val: class : 78.88
+Accuracies on test: class : 70.47
+New epoch - lr: 9.901664203302126e-06
+Accuracies on val: class : 80.65
+Accuracies on test: class : 72.04
+New epoch - lr: 9.779754323328192e-06
+Accuracies on val: class : 82.02
+Accuracies on test: class : 72.75
+New epoch - lr: 9.610954559391703e-06
+Accuracies on val: class : 81.34
+Accuracies on test: class : 74.11
+New epoch - lr: 9.397114317029975e-06
+Accuracies on val: class : 82.43
+Accuracies on test: class : 74.88
+New epoch - lr: 9.140576474687265e-06
+Accuracies on val: class : 82.43
+Accuracies on test: class : 75.18
+New epoch - lr: 8.844151714648276e-06
+Accuracies on val: class : 82.29
+Accuracies on test: class : 76.18
+New epoch - lr: 8.511087728614863e-06
+Accuracies on val: class : 82.70
+Accuracies on test: class : 76.54
+New epoch - lr: 8.14503363531613e-06
+Accuracies on val: class : 82.83
+Accuracies on test: class : 76.30
+New epoch - lr: 7.75e-06
+Accuracies on val: class : 83.38
+Accuracies on test: class : 76.51
+New epoch - lr: 7.3303148938411025e-06
+Accuracies on val: class : 82.97
+Accuracies on test: class : 76.24
+New epoch - lr: 6.8905764746872645e-06
+Accuracies on val: class : 83.92
+Accuracies on test: class : 77.01
+New epoch - lr: 6.4356026086799176e-06
+Accuracies on val: class : 82.83
+Accuracies on test: class : 76.87
+New epoch - lr: 5.970378084704441e-06
+Accuracies on val: class : 84.20
+Accuracies on test: class : 77.49
+New epoch - lr: 5.5e-06
+Accuracies on val: class : 83.24
+Accuracies on test: class : 77.99
+New epoch - lr: 5.029621915295559e-06
+Accuracies on val: class : 84.20
+Accuracies on test: class : 78.05
+New epoch - lr: 4.5643973913200805e-06
+Accuracies on val: class : 84.33
+Accuracies on test: class : 78.26
+New epoch - lr: 4.109423525312735e-06
+Accuracies on val: class : 84.88
+Accuracies on test: class : 78.52
+New epoch - lr: 3.6696851061588985e-06
+Accuracies on val: class : 83.65
+Accuracies on test: class : 77.37
+New epoch - lr: 3.25e-06
+Accuracies on val: class : 84.20
+Accuracies on test: class : 78.26
+New epoch - lr: 2.8549663646838704e-06
+Accuracies on val: class : 84.06
+Accuracies on test: class : 78.11
+New epoch - lr: 2.488912271385139e-06
+Accuracies on val: class : 84.06
+Accuracies on test: class : 77.84
+New epoch - lr: 2.1558482853517265e-06
+Accuracies on val: class : 83.92
+Accuracies on test: class : 78.11
+New epoch - lr: 1.8594235253127369e-06
+Accuracies on val: class : 84.06
+Accuracies on test: class : 77.75
+New epoch - lr: 1.6028856829700258e-06
+Accuracies on val: class : 84.74
+Accuracies on test: class : 78.23
+New epoch - lr: 1.3890454406082957e-06
+Accuracies on val: class : 83.92
+Accuracies on test: class : 78.17
+New epoch - lr: 1.2202456766718092e-06
+Accuracies on val: class : 84.33
+Accuracies on test: class : 78.26
+New epoch - lr: 1.0983357966978747e-06
+Accuracies on val: class : 83.92
+Accuracies on test: class : 78.17
+New epoch - lr: 1.0246514708427699e-06
+Accuracies on val: class : 84.06
+Accuracies on test: class : 78.14
+Best val 0.848774, corresponding test 0.785249 - best test: 0.785249, best epoch: 18
+It took 5026.1
+Target domain: PASCAL
+Dataset size: train 6606, val 734, test 3376, alternative_loader 1
+Step size: 24
+Methodology: MMD
+Training: model=convit_base, bs=10, lr=1e-05, scheduler=cos, epochs=30, cuda=0, target=PASCAL
+New epoch - lr: 1e-05
+Accuracies on val: class : 79.43
+Accuracies on test: class : 68.99
+New epoch - lr: 9.97534852915723e-06
+Accuracies on val: class : 82.43
+Accuracies on test: class : 71.65
+New epoch - lr: 9.901664203302126e-06
+Accuracies on val: class : 82.83
+Accuracies on test: class : 72.48
+New epoch - lr: 9.779754323328192e-06
+Accuracies on val: class : 82.70
+Accuracies on test: class : 72.63
+New epoch - lr: 9.610954559391703e-06
+Accuracies on val: class : 83.51
+Accuracies on test: class : 73.02
+New epoch - lr: 9.397114317029975e-06
+Accuracies on val: class : 83.92
+Accuracies on test: class : 74.05
+New epoch - lr: 9.140576474687265e-06
+Accuracies on val: class : 84.47
+Accuracies on test: class : 73.64
+New epoch - lr: 8.844151714648276e-06
+Accuracies on val: class : 83.79
+Accuracies on test: class : 75.59
+New epoch - lr: 8.511087728614863e-06
+Accuracies on val: class : 84.60
+Accuracies on test: class : 75.15
+New epoch - lr: 8.14503363531613e-06
+Accuracies on val: class : 84.60
+Accuracies on test: class : 75.74
+New epoch - lr: 7.75e-06
+Accuracies on val: class : 84.06
+Accuracies on test: class : 76.04
+New epoch - lr: 7.3303148938411025e-06
+Accuracies on val: class : 83.92
+Accuracies on test: class : 76.95
+New epoch - lr: 6.8905764746872645e-06
+Accuracies on val: class : 84.06
+Accuracies on test: class : 76.95
+New epoch - lr: 6.4356026086799176e-06
+Accuracies on val: class : 84.88
+Accuracies on test: class : 77.19
+New epoch - lr: 5.970378084704441e-06
+Accuracies on val: class : 84.06
+Accuracies on test: class : 77.93
+New epoch - lr: 5.5e-06
+Accuracies on val: class : 83.79
+Accuracies on test: class : 77.84
+New epoch - lr: 5.029621915295559e-06
+Accuracies on val: class : 84.20
+Accuracies on test: class : 77.90
+New epoch - lr: 4.5643973913200805e-06
+Accuracies on val: class : 84.33
+Accuracies on test: class : 78.26
+New epoch - lr: 4.109423525312735e-06
+Accuracies on val: class : 84.47
+Accuracies on test: class : 77.84
+New epoch - lr: 3.6696851061588985e-06
+Accuracies on val: class : 84.33
+Accuracies on test: class : 77.87
+New epoch - lr: 3.25e-06
+Accuracies on val: class : 84.74
+Accuracies on test: class : 78.47
+New epoch - lr: 2.8549663646838704e-06
+Accuracies on val: class : 83.92
+Accuracies on test: class : 78.55
+New epoch - lr: 2.488912271385139e-06
+Accuracies on val: class : 83.51
+Accuracies on test: class : 77.99
+New epoch - lr: 2.1558482853517265e-06
+Accuracies on val: class : 84.47
+Accuracies on test: class : 78.23
+New epoch - lr: 1.8594235253127369e-06
+Accuracies on val: class : 85.15
+Accuracies on test: class : 78.58
+New epoch - lr: 1.6028856829700258e-06
+Accuracies on val: class : 84.20
+Accuracies on test: class : 78.26
+New epoch - lr: 1.3890454406082957e-06
+Accuracies on val: class : 84.33
+Accuracies on test: class : 78.08
+New epoch - lr: 1.2202456766718092e-06
+Accuracies on val: class : 84.20
+Accuracies on test: class : 78.11
+New epoch - lr: 1.0983357966978747e-06
+Accuracies on val: class : 84.06
+Accuracies on test: class : 77.96
+New epoch - lr: 1.0246514708427699e-06
+Accuracies on val: class : 84.88
+Accuracies on test: class : 78.23
+Best val 0.851499, corresponding test 0.785841 - best test: 0.785841, best epoch: 24
+It took 5031.2
+Target domain: SUN
+Dataset size: train 6687, val 743, test 3282, alternative_loader 1
+Step size: 24
+Methodology: MMD
+Training: model=convit_base, bs=10, lr=1e-05, scheduler=cos, epochs=30, cuda=0, target=SUN
+New epoch - lr: 1e-05
+Accuracies on val: class : 80.22
+Accuracies on test: class : 69.96
+New epoch - lr: 9.97534852915723e-06
+Accuracies on val: class : 82.64
+Accuracies on test: class : 71.12
+New epoch - lr: 9.901664203302126e-06
+Accuracies on val: class : 83.98
+Accuracies on test: class : 71.36
+New epoch - lr: 9.779754323328192e-06
+Accuracies on val: class : 84.52
+Accuracies on test: class : 72.27
+New epoch - lr: 9.610954559391703e-06
+Accuracies on val: class : 84.66
+Accuracies on test: class : 70.63
+New epoch - lr: 9.397114317029975e-06
+Accuracies on val: class : 86.14
+Accuracies on test: class : 74.83
+New epoch - lr: 9.140576474687265e-06
+Accuracies on val: class : 85.73
+Accuracies on test: class : 75.41
+New epoch - lr: 8.844151714648276e-06
+Accuracies on val: class : 85.20
+Accuracies on test: class : 72.88
+New epoch - lr: 8.511087728614863e-06
+Accuracies on val: class : 85.87
+Accuracies on test: class : 75.66
+New epoch - lr: 8.14503363531613e-06
+Accuracies on val: class : 85.60
+Accuracies on test: class : 75.32
+New epoch - lr: 7.75e-06
+Accuracies on val: class : 85.20
+Accuracies on test: class : 75.11
+New epoch - lr: 7.3303148938411025e-06
+Accuracies on val: class : 85.33
+Accuracies on test: class : 75.99
+New epoch - lr: 6.8905764746872645e-06
+Accuracies on val: class : 86.54
+Accuracies on test: class : 77.67
+New epoch - lr: 6.4356026086799176e-06
+Accuracies on val: class : 85.60
+Accuracies on test: class : 77.85
+New epoch - lr: 5.970378084704441e-06
+Accuracies on val: class : 84.79
+Accuracies on test: class : 74.83
+New epoch - lr: 5.5e-06
+Accuracies on val: class : 85.73
+Accuracies on test: class : 75.84
+New epoch - lr: 5.029621915295559e-06
+Accuracies on val: class : 85.33
+Accuracies on test: class : 74.65
+New epoch - lr: 4.5643973913200805e-06
+Accuracies on val: class : 86.54
+Accuracies on test: class : 78.92
+New epoch - lr: 4.109423525312735e-06
+Accuracies on val: class : 85.46
+Accuracies on test: class : 75.78
+New epoch - lr: 3.6696851061588985e-06
+Accuracies on val: class : 84.93
+Accuracies on test: class : 74.10
+New epoch - lr: 3.25e-06
+Accuracies on val: class : 84.93
+Accuracies on test: class : 72.61
+New epoch - lr: 2.8549663646838704e-06
+Accuracies on val: class : 85.33
+Accuracies on test: class : 75.35
+New epoch - lr: 2.488912271385139e-06
+Accuracies on val: class : 85.20
+Accuracies on test: class : 75.35
+New epoch - lr: 2.1558482853517265e-06
+Accuracies on val: class : 85.33
+Accuracies on test: class : 74.65
+New epoch - lr: 1.8594235253127369e-06
+Accuracies on val: class : 85.60
+Accuracies on test: class : 75.38
+New epoch - lr: 1.6028856829700258e-06
+Accuracies on val: class : 85.73
+Accuracies on test: class : 75.17
+New epoch - lr: 1.3890454406082957e-06
+Accuracies on val: class : 85.20
+Accuracies on test: class : 76.51
+New epoch - lr: 1.2202456766718092e-06
+Accuracies on val: class : 85.20
+Accuracies on test: class : 75.75
+New epoch - lr: 1.0983357966978747e-06
+Accuracies on val: class : 84.93
+Accuracies on test: class : 75.84
+New epoch - lr: 1.0246514708427699e-06
+Accuracies on val: class : 85.46
+Accuracies on test: class : 76.33
+Best val 0.865411, corresponding test 0.776661 - best test: 0.789153, best epoch: 12
+It took 5008.55
+Target domain: SUN
+Target domain: SUN
+Target domain: SUN
+Dataset size: train 6687, val 743, test 3282, alternative_loader 1
+Step size: 24
+Methodology: MMD
+Training: model=convit_base, bs=10, lr=1e-05, scheduler=cos, epochs=30, cuda=0, target=SUN
+New epoch - lr: 1e-05
+Accuracies on val: class : 81.16
+Accuracies on test: class : 70.72
+New epoch - lr: 9.97534852915723e-06
+Accuracies on val: class : 83.45
+Accuracies on test: class : 72.94
+New epoch - lr: 9.901664203302126e-06
+Accuracies on val: class : 84.66
+Accuracies on test: class : 73.43
+New epoch - lr: 9.779754323328192e-06
+Accuracies on val: class : 84.52
+Accuracies on test: class : 74.80
+New epoch - lr: 9.610954559391703e-06
+Accuracies on val: class : 85.06
+Accuracies on test: class : 74.50
+New epoch - lr: 9.397114317029975e-06
+Accuracies on val: class : 85.73
+Accuracies on test: class : 74.56
+New epoch - lr: 9.140576474687265e-06
+Accuracies on val: class : 84.93
+Accuracies on test: class : 73.46
+New epoch - lr: 8.844151714648276e-06
+Accuracies on val: class : 85.60
+Accuracies on test: class : 76.54
+New epoch - lr: 8.511087728614863e-06
+Accuracies on val: class : 86.14
+Accuracies on test: class : 75.56
+New epoch - lr: 8.14503363531613e-06
+Accuracies on val: class : 85.73
+Accuracies on test: class : 75.02
+New epoch - lr: 7.75e-06
+Accuracies on val: class : 85.87
+Accuracies on test: class : 75.02
+New epoch - lr: 7.3303148938411025e-06
+Accuracies on val: class : 86.27
+Accuracies on test: class : 77.39
+New epoch - lr: 6.8905764746872645e-06
+Accuracies on val: class : 85.60
+Accuracies on test: class : 74.77
+New epoch - lr: 6.4356026086799176e-06
+Accuracies on val: class : 85.20
+Accuracies on test: class : 74.80
+New epoch - lr: 5.970378084704441e-06
+Accuracies on val: class : 85.20
+Accuracies on test: class : 75.84
+New epoch - lr: 5.5e-06
+Accuracies on val: class : 85.73
+Accuracies on test: class : 75.69
+New epoch - lr: 5.029621915295559e-06
+Accuracies on val: class : 85.60
+Accuracies on test: class : 77.15
+New epoch - lr: 4.5643973913200805e-06
+Accuracies on val: class : 85.73
+Accuracies on test: class : 76.26
+New epoch - lr: 4.109423525312735e-06
+Accuracies on val: class : 85.46
+Accuracies on test: class : 74.80
+New epoch - lr: 3.6696851061588985e-06
+Accuracies on val: class : 85.06
+Accuracies on test: class : 74.56
+New epoch - lr: 3.25e-06
+Accuracies on val: class : 85.60
+Accuracies on test: class : 77.06
+New epoch - lr: 2.8549663646838704e-06
+Accuracies on val: class : 85.60
+Accuracies on test: class : 75.72
+New epoch - lr: 2.488912271385139e-06
+Accuracies on val: class : 85.33
+Accuracies on test: class : 76.26
+New epoch - lr: 2.1558482853517265e-06
+Accuracies on val: class : 85.33
+Accuracies on test: class : 75.93
+New epoch - lr: 1.8594235253127369e-06
+Accuracies on val: class : 85.20
+Accuracies on test: class : 75.50
+New epoch - lr: 1.6028856829700258e-06
+Accuracies on val: class : 85.33
+Accuracies on test: class : 75.87
+New epoch - lr: 1.3890454406082957e-06
+Accuracies on val: class : 85.33
+Accuracies on test: class : 74.80
+New epoch - lr: 1.2202456766718092e-06
+Accuracies on val: class : 85.60
+Accuracies on test: class : 75.08
+New epoch - lr: 1.0983357966978747e-06
+Accuracies on val: class : 85.73
+Accuracies on test: class : 74.65
+New epoch - lr: 1.0246514708427699e-06
+Accuracies on val: class : 84.79
+Accuracies on test: class : 76.36
+Best val 0.862719, corresponding test 0.773918 - best test: 0.773918, best epoch: 11
+It took 4814.06
+Target domain: SUN
+Dataset size: train 6687, val 743, test 3282, alternative_loader 1
+Step size: 24
+Methodology: MMD
+Training: model=convit_base, bs=10, lr=1e-05, scheduler=cos, epochs=30, cuda=0, target=SUN
+New epoch - lr: 1e-05
+Accuracies on val: class : 80.48
+Accuracies on test: class : 67.82
+New epoch - lr: 9.97534852915723e-06
+Accuracies on val: class : 83.58
+Accuracies on test: class : 72.12
+New epoch - lr: 9.901664203302126e-06
+Accuracies on val: class : 83.45
+Accuracies on test: class : 73.92
+New epoch - lr: 9.779754323328192e-06
+Accuracies on val: class : 83.85
+Accuracies on test: class : 74.83
+New epoch - lr: 9.610954559391703e-06
+Accuracies on val: class : 84.12
+Accuracies on test: class : 73.16
+New epoch - lr: 9.397114317029975e-06
+Accuracies on val: class : 84.39
+Accuracies on test: class : 75.53
+New epoch - lr: 9.140576474687265e-06
+Accuracies on val: class : 84.25
+Accuracies on test: class : 75.99
+New epoch - lr: 8.844151714648276e-06
+Accuracies on val: class : 84.12
+Accuracies on test: class : 73.89
+New epoch - lr: 8.511087728614863e-06
+Accuracies on val: class : 84.39
+Accuracies on test: class : 76.02
+New epoch - lr: 8.14503363531613e-06
+Accuracies on val: class : 84.39
+Accuracies on test: class : 76.17
+New epoch - lr: 7.75e-06
+Accuracies on val: class : 84.79
+Accuracies on test: class : 74.16
+New epoch - lr: 7.3303148938411025e-06
+Accuracies on val: class : 84.25
+Accuracies on test: class : 76.54
+New epoch - lr: 6.8905764746872645e-06
+Accuracies on val: class : 84.39
+Accuracies on test: class : 75.69
+New epoch - lr: 6.4356026086799176e-06
+Accuracies on val: class : 84.66
+Accuracies on test: class : 72.58
+New epoch - lr: 5.970378084704441e-06
+Accuracies on val: class : 85.06
+Accuracies on test: class : 75.72
+New epoch - lr: 5.5e-06
+Accuracies on val: class : 84.93
+Accuracies on test: class : 76.90
+New epoch - lr: 5.029621915295559e-06
+Accuracies on val: class : 85.60
+Accuracies on test: class : 77.36
+New epoch - lr: 4.5643973913200805e-06
+Accuracies on val: class : 85.33
+Accuracies on test: class : 76.20
+New epoch - lr: 4.109423525312735e-06
+Accuracies on val: class : 84.93
+Accuracies on test: class : 76.36
+New epoch - lr: 3.6696851061588985e-06
+Accuracies on val: class : 84.93
+Accuracies on test: class : 75.11
+New epoch - lr: 3.25e-06
+Accuracies on val: class : 84.79
+Accuracies on test: class : 76.02
+New epoch - lr: 2.8549663646838704e-06
+Accuracies on val: class : 84.79
+Accuracies on test: class : 76.23
+New epoch - lr: 2.488912271385139e-06
+Accuracies on val: class : 84.79
+Accuracies on test: class : 77.12
+New epoch - lr: 2.1558482853517265e-06
+Accuracies on val: class : 84.39
+Accuracies on test: class : 76.39
+New epoch - lr: 1.8594235253127369e-06
+Accuracies on val: class : 85.60
+Accuracies on test: class : 77.09
+New epoch - lr: 1.6028856829700258e-06
+Accuracies on val: class : 85.06
+Accuracies on test: class : 77.64
+New epoch - lr: 1.3890454406082957e-06
+Accuracies on val: class : 85.60
+Accuracies on test: class : 76.75
+New epoch - lr: 1.2202456766718092e-06
+Accuracies on val: class : 85.20
+Accuracies on test: class : 76.97
+New epoch - lr: 1.0983357966978747e-06
+Accuracies on val: class : 85.33
+Accuracies on test: class : 76.51
+New epoch - lr: 1.0246514708427699e-06
+Accuracies on val: class : 85.20
+Accuracies on test: class : 76.63
+Best val 0.855989, corresponding test 0.773614 - best test: 0.776356, best epoch: 16
+It took 4817.18

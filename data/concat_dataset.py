@@ -3,6 +3,9 @@ import warnings
 
 from torch.utils.data import Dataset
 
+# This is a small variant of the ConcatDataset class, which also returns dataset index
+from data.JigsawLoader import JigsawTestDatasetMultiple
+
 
 class ConcatDataset(Dataset):
     """
@@ -24,6 +27,8 @@ class ConcatDataset(Dataset):
             s += l
         return r
 
+    def isMulti(self):
+        return isinstance(self.datasets[0], JigsawTestDatasetMultiple)
 
     def __init__(self, datasets):
         super(ConcatDataset, self).__init__()
@@ -41,3 +46,9 @@ class ConcatDataset(Dataset):
         else:
             sample_idx = idx - self.cumulative_sizes[dataset_idx - 1]
         return self.datasets[dataset_idx][sample_idx], dataset_idx
+
+    @property
+    def cummulative_sizes(self):
+        warnings.warn("cummulative_sizes attribute is renamed to "
+                      "cumulative_sizes", DeprecationWarning, stacklevel=2)
+        return self.cumulative_sizes

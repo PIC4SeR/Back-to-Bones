@@ -1,0 +1,14 @@
+--network resnet18
+--meth None
+
+--dataset PACS
+--target sketch
+
+--batch_size 32 
+--epochs 30 
+--optimizer Adam 
+--lr 0.001
+--lr_sched cos 
+
+--cuda 0
+--verbose False

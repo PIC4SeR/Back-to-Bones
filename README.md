@@ -1,6 +1,7 @@
-# Back-to-Bones
-
-[Back-to-Bones: Rediscovering the Role of Backbones in Domain Generalization](https://arxiv.org/abs/2209.01121)
+[![arXiv](http://img.shields.io/badge/arXiv-2001.09136-B31B1B.svg)](https://arxiv.org/abs/2209.01121)
+[![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
+<h1 align="center">  Back-to-Bones <br> Rediscovering the Role of Backbones in Domain Generalization
+</h1>
 
 [REPOSITORY UNDER CONSTRUCTION]
 Enjoy the paper while we work on completing the README 👨🏻‍💻

@@ -23,6 +23,7 @@ for some einops/einsum fun
 Hacked together by / Copyright 2021 Ross Wightman
 """
 import math
+import random
 import logging
 from functools import partial
 from collections import OrderedDict
@@ -43,6 +44,9 @@ import numpy as np
 _logger = logging.getLogger(__name__)
 
 
+from models.ADDG import MixStyle2 as MixStyle
+from models.ADDG import Intra_ADR, Inter_ADR
+
 def _cfg(url='', **kwargs):
     return {
         'url': url,
@@ -62,7 +66,7 @@ default_cfgs = {
         url='https://dl.fbaipublicfiles.com/deit/deit_base_patch16_224-b5f2ef4d.pth',
         mean=IMAGENET_DEFAULT_MEAN, std=IMAGENET_DEFAULT_STD)
 }
-
+    
 
 class Attention(nn.Module):
     def __init__(self, dim, num_heads=8, qkv_bias=False, attn_drop=0., proj_drop=0.):
@@ -104,10 +108,12 @@ class Block(nn.Module):
         mlp_hidden_dim = int(dim * mlp_ratio)
         self.mlp = Mlp(in_features=dim, hidden_features=mlp_hidden_dim, act_layer=act_layer, drop=drop)
 
-    def forward(self, x):
-        x = x + self.drop_path(self.attn(self.norm1(x)))
+    def forward(self, inp):
+        if not isinstance(inp, list):
+            inp = [inp]
+        x = inp[-1] + self.drop_path(self.attn(self.norm1(inp[-1])))
         x = x + self.drop_path(self.mlp(self.norm2(x)))
-        return x
+        return [*inp, x]
 
 
 class VisionTransformer(nn.Module):
@@ -123,8 +129,7 @@ class VisionTransformer(nn.Module):
     def __init__(self, img_size=224, patch_size=16, in_chans=3, num_classes=1000, embed_dim=768, depth=12,
                  num_heads=12, mlp_ratio=4., qkv_bias=True, representation_size=3072, distilled=False,
                  drop_rate=0., attn_drop_rate=0., drop_path_rate=0., embed_layer=PatchEmbed, norm_layer=None,
-                 act_layer=None, weight_init='', drop_b=2.0/3.0*100, drop_f=2.0/3.0*100, 
-                 meth=None, gaussian=False):
+                 act_layer=None, weight_init='', meth=None, teachers=None, args=None):
         """
         Args:
             img_size (int, tuple): input image size
@@ -151,11 +156,10 @@ class VisionTransformer(nn.Module):
         
         self.criterion = nn.CrossEntropyLoss(reduction='none')
         self.criterion = self.criterion.to(self.device)
-        
-        self.drop_b = drop_b
-        self.drop_f = drop_f
+
         self.meth = meth
-        self.gaussian = gaussian
+        self.teachers = teachers
+        self.args = args
         
         self.num_classes = num_classes
         self.num_features = self.embed_dim = embed_dim  # num_features for consistency with other models
@@ -173,12 +177,20 @@ class VisionTransformer(nn.Module):
         self.pos_drop = nn.Dropout(p=drop_rate)
 
         dpr = [x.item() for x in torch.linspace(0, drop_path_rate, depth)]  # stochastic depth decay rule
-        self.blocks = nn.Sequential(*[
-            Block(
-                dim=embed_dim, num_heads=num_heads, mlp_ratio=mlp_ratio, qkv_bias=qkv_bias, drop=drop_rate,
-                attn_drop=attn_drop_rate, drop_path=dpr[i], norm_layer=norm_layer, act_layer=act_layer)
-            for i in range(depth)])
+        self.blocks = [Block(dim=embed_dim, num_heads=num_heads, mlp_ratio=mlp_ratio, qkv_bias=qkv_bias, drop=drop_rate,
+                             attn_drop=attn_drop_rate, drop_path=dpr[i], norm_layer=norm_layer, act_layer=act_layer).cuda()
+                       for i in range(depth)]
         self.norm = norm_layer(embed_dim)
+        
+        self.mixstyle_layers=[2, 3]
+        self.mixstyle_p=0.5
+        self.mixstyle_alpha=0.1
+        self.mixstyle = MixStyle(p=self.mixstyle_p, alpha=self.mixstyle_alpha)
+        self.intra_adr = Intra_ADR(197, 768, Norm=self.mixstyle)
+        self.gmp = nn.AdaptiveMaxPool2d(1)
+        
+        if self.meth == 'ADDG':
+            self.get_teachers()
 
         # Representation layer
         self.pre_logits = nn.Sequential(OrderedDict([
@@ -190,43 +202,6 @@ class VisionTransformer(nn.Module):
         self.head_dist = None
 
         self.init_weights(weight_init)
-        
-        if self.meth == 'Transfer':
-            self.adv_classifier = nn.Linear(self.num_features, num_classes) if num_classes > 0 else nn.Identity()
-            self.adv_classifier.load_state_dict(self.head.state_dict())
-            
-            self.register_buffer('update_count', torch.tensor([0]))
-            self.d_steps_per_g = 10
-            
-            self.adv_opt = torch.optim.SGD(self.adv_classifier.parameters(), lr=1e-3)
-
-        elif self.meth == 'CAD':
-            self.is_conditional = False  # whether to use bottleneck conditioned on the label
-            self.base_temperature = 0.07
-            self.temperature = 0.1
-            self.is_project = False  # whether apply projection head
-            self.is_normalized = False # whether apply normalization to representation when computing loss
-
-            # whether flip maximize log(p) (False) to minimize -log(1-p) (True) for the bottleneck loss
-            # the two versions have the same optima, but we find the latter is more stable
-            self.is_flipped = True
-
-            if self.is_project:
-                self.project = nn.Sequential(
-                    nn.Linear(feature_dim, feature_dim),
-                    nn.ReLU(inplace=True),
-                    nn.Linear(feature_dim, 128),
-                )
-                params += list(self.project.parameters())
-            
-        elif self.meth == 'MMD':
-            self.gaussian = True
-            self.meth = 'CORAL'
-            
-        elif self.meth == 'CausIRL_MMD':
-            self.gaussian = True
-            self.meth = 'CausIRL_CORAL'
-            
             
     def init_weights(self, mode=''):
         assert mode in ('jax', 'jax_nlhb', 'nlhb', '')
@@ -240,6 +215,11 @@ class VisionTransformer(nn.Module):
         else:
             trunc_normal_(self.cls_token, std=.02)
             self.apply(_init_vit_weights)
+            
+            
+    def get_teachers(self):
+        from models.utils import get_model
+        self.teachers = [get_model(args=self.args, meth='None', weights=w)[0].cuda() for w in self.teachers]
 
     def _init_weights(self, m):
         # this fn left here for compat with downstream users
@@ -265,155 +245,32 @@ class VisionTransformer(nn.Module):
 
     def forward_features(self, x):
         x = self.patch_embed(x)
-        print(x.shape)
         cls_token = self.cls_token.expand(x.shape[0], -1, -1)  # stole cls_tokens impl from Phil Wang, thanks
         x = torch.cat((cls_token, x), dim=1)
-        print(x.shape)
 
         x = self.pos_drop(x + self.pos_embed)
-        print(x.shape)
-        x = self.blocks(x)
-        print(x.shape)
-        x = self.norm(x)
-        print(x.shape)
-        return self.pre_logits(x[:, 0])
+        
+        for i, block in enumerate(self.blocks):
+            x = block(x)
+            if self.meth == 'ADDG' and i in self.mixstyle_layers:
+                x[-1] = self.mixstyle(x[-1])
+            
+        block_feats = x
+        branch_out, branch2, x_adr = self.intra_adr(x[-1])
+        
+        b2_out = branch2 #self.norm(branch2)
+        x = self.norm(x[-1])
+        #x_adr = self.norm(x_adr)
+        
+        return [self.pre_logits(x_adr[..., 0]), self.pre_logits(x[:,0])], [branch_out, self.pre_logits(b2_out[..., 0])], block_feats
 
-    def my_cdist(self, x1, x2):
-        x1_norm = x1.pow(2).sum(dim=-1, keepdim=True)
-        x2_norm = x2.pow(2).sum(dim=-1, keepdim=True)
-        res = torch.addmm(x2_norm.transpose(-2, -1),
-                          x1,
-                          x2.transpose(-2, -1), alpha=-2).add_(x1_norm)
-        return res.clamp_min_(1e-30)
-
-    def gaussian_kernel(self, x, y, gamma=[0.001, 0.01, 0.1, 1, 10, 100,
-                                           1000]):
-        D = self.my_cdist(x, y)
-        K = torch.zeros_like(D)
-
-        for g in gamma:
-            K.add_(torch.exp(D.mul(-g)))
-
-        return K
-
-    def mmd(self, x, y):
-        if self.gaussian:
-            Kxx = self.gaussian_kernel(x, x).mean()
-            Kyy = self.gaussian_kernel(y, y).mean()
-            Kxy = self.gaussian_kernel(x, y).mean()
-            return Kxx + Kyy - 2 * Kxy
-        else:
-            mean_x = x.mean(0, keepdim=True)
-            mean_y = y.mean(0, keepdim=True)
-            cent_x = x - mean_x
-            cent_y = y - mean_y
-            cova_x = (cent_x.t() @ cent_x) / (len(x) - 1)
-            cova_y = (cent_y.t() @ cent_y) / (len(y) - 1)
-
-            mean_diff = (mean_x - mean_y).pow(2).mean()
-            cova_diff = (cova_x - cova_y).pow(2).mean()
-
-            return mean_diff + cova_diff
-
-    def loss_gap(self, minibatches, device='cuda'):
-        ''' compute gap = max_i loss_i(h) - min_j loss_j(h), return i, j, and the gap for a single batch'''
-        max_env_loss, min_env_loss =  torch.tensor([-float('inf')], device=device), torch.tensor([float('inf')], device=device)
-        for x, y in minibatches:
-            p = self.adv_classifier(self.forward_features(x))
-            loss = F.cross_entropy(p, y)
-            if loss > max_env_loss:
-                max_env_loss = loss
-            if loss < min_env_loss:
-                min_env_loss = loss
-        return max_env_loss - min_env_loss    
-    
-    def bn_loss(self, z, y, dom_labels):
-        """Contrastive based domain bottleneck loss
-         The implementation is based on the supervised contrastive loss (SupCon) introduced by
-         P. Khosla, et al., in “Supervised Contrastive Learning“.
-        Modified from  https://github.com/HobbitLong/SupContrast/blob/8d0963a7dbb1cd28accb067f5144d61f18a77588/losses.py#L11
-        """
-        device = z.device
-        batch_size = z.shape[0]
-
-        y = y.contiguous().view(-1, 1)
-        dom_labels = dom_labels.contiguous().view(-1, 1)
-        mask_y = torch.eq(y, y.T).to(device)
-        mask_d = (torch.eq(dom_labels, dom_labels.T)).to(device)
-        mask_drop = ~torch.eye(batch_size).bool().to(device)  # drop the "current"/"self" example
-        mask_y &= mask_drop
-        mask_y_n_d = mask_y & (~mask_d)  # contain the same label but from different domains
-        mask_y_d = mask_y & mask_d  # contain the same label and the same domain
-        mask_y, mask_drop, mask_y_n_d, mask_y_d = mask_y.float(), mask_drop.float(), mask_y_n_d.float(), mask_y_d.float()
-
-        # compute logits
-        if self.is_project:
-            z = self.project(z)
-        if self.is_normalized:
-            z = F.normalize(z, dim=1)
-        outer = z @ z.T
-        logits = outer / self.temperature
-        logits = logits * mask_drop
-        # for numerical stability
-        logits_max, _ = torch.max(logits, dim=1, keepdim=True)
-        logits = logits - logits_max.detach()
-
-        if not self.is_conditional:
-            # unconditional CAD loss
-            denominator = torch.logsumexp(logits + mask_drop.log(), dim=1, keepdim=True)
-            log_prob = logits - denominator
-
-            mask_valid = (mask_y.sum(1) > 0)
-            log_prob = log_prob[mask_valid]
-            mask_d = mask_d[mask_valid]
-
-            if self.is_flipped:  # maximize log prob of samples from different domains
-                bn_loss = - (self.temperature / self.base_temperature) * torch.logsumexp(
-                    log_prob + (~mask_d).float().log(), dim=1)
-            else:  # minimize log prob of samples from same domain
-                bn_loss = (self.temperature / self.base_temperature) * torch.logsumexp(
-                    log_prob + (mask_d).float().log(), dim=1)
-        else:
-            # conditional CAD loss
-            if self.is_flipped:
-                mask_valid = (mask_y_n_d.sum(1) > 0)
-            else:
-                mask_valid = (mask_y_d.sum(1) > 0)
-
-            mask_y = mask_y[mask_valid]
-            mask_y_d = mask_y_d[mask_valid]
-            mask_y_n_d = mask_y_n_d[mask_valid]
-            logits = logits[mask_valid]
-
-            # compute log_prob_y with the same label
-            denominator = torch.logsumexp(logits + mask_y.log(), dim=1, keepdim=True)
-            log_prob_y = logits - denominator
-
-            if self.is_flipped:  # maximize log prob of samples from different domains and with same label
-                bn_loss = - (self.temperature / self.base_temperature) * torch.logsumexp(
-                    log_prob_y + mask_y_n_d.log(), dim=1)
-            else:  # minimize log prob of samples from same domains and with same label
-                bn_loss = (self.temperature / self.base_temperature) * torch.logsumexp(
-                    log_prob_y + mask_y_d.log(), dim=1)
-
-        def finite_mean(x):
-            # only 1D for now
-            num_finite = (torch.isfinite(x).float()).sum()
-            mean = torch.where(torch.isfinite(x), x, torch.tensor(0.0).to(x)).sum()
-            if num_finite != 0:
-                mean = mean / num_finite
-            else:
-                return torch.tensor(0.0).to(x)
-            return mean
-
-        return finite_mean(bn_loss)
     
     def forward(self, x, y=None): 
                     
         if not isinstance(x, list): # Standard input
             x_all = x.to(self.device)
             
-            all_f = self.forward_features(x_all)
+            [_, all_f], _, _ = self.forward_features(x_all)
             all_p = self.head(all_f)
             
             if y is None:
@@ -421,175 +278,65 @@ class VisionTransformer(nn.Module):
             
             y = y.to(self.device)
         
-        if self.meth == 'Mixup': # Alternative input
-            mixup_alpha = 0.2
-            objective = 0
-            
-            for (xi, yi), (xj, yj) in random_pairs_of_minibatches(x):
-                lam = np.random.beta(mixup_alpha, mixup_alpha)
-
-                x_m = lam * xi + (1 - lam) * xj
-
-                predictions = self.head(self.forward_features(x_m))
-
-                objective += lam * self.criterion(predictions, yi)
-                objective += (1 - lam) * self.criterion(predictions, yj)
-            
-            objective /= len(x)
-            return objective
         
-        elif self.meth == 'RSC':
+        elif self.meth == 'ADDG':
+        
             all_x = torch.cat([x for x, y in x]).cuda()
             all_y = torch.cat([y for x, y in x]).cuda()
-            # one-hot labels
-            all_o = torch.nn.functional.one_hot(all_y, self.num_classes)
-            # features
-            all_f = self.forward_features(all_x)
-            # predictions
-            all_p = self.head(all_f)
-
-            # Equation (1): compute gradients with respect to representation
-            all_g = autograd.grad((all_p * all_o).sum(), all_f)[0]
-
-            # Equation (2): compute top-gradient-percentile mask
-            percentiles = np.percentile(all_g.cpu(), self.drop_f, axis=1)
-            percentiles = torch.Tensor(percentiles)
-            percentiles = percentiles.unsqueeze(1).repeat(1, all_g.size(1))
-            mask_f = all_g.lt(percentiles.to(self.device)).float()
-
-            # Equation (3): mute top-gradient-percentile activations
-            all_f_muted = all_f * mask_f
-
-            # Equation (4): compute muted predictions
-            all_p_muted = self.head(all_f_muted)
-
-            # Section 3.3: Batch Percentage
-            all_s = F.softmax(all_p, dim=1)
-            all_s_muted = F.softmax(all_p_muted, dim=1)
-            changes = (all_s * all_o).sum(1) - (all_s_muted * all_o).sum(1)
-            percentile = np.percentile(changes.detach().cpu(), self.drop_b)
-            mask_b = changes.lt(percentile).float().view(-1, 1)
-            mask = torch.logical_or(mask_f, mask_b).float()
-
-            # Equations (3) and (4) again, this time mutting over examples
-            all_p_muted_again = self.head(all_f * mask)
-
-            # Equation (5): update
-            loss = self.criterion(all_p_muted_again, all_y)
-
-            return loss
-
-        elif self.meth == 'RSC_old': # Standard input
-            all_o = torch.nn.functional.one_hot(y, self.num_classes)
-            all_g = autograd.grad((all_p * all_o).sum(), all_f)[0]
-
-            percentiles = np.percentile(all_g.cpu(), self.drop_f, axis=1)
-            percentiles = torch.Tensor(percentiles)
-            percentiles = percentiles.unsqueeze(1).repeat(1, all_g.size(1))
-            mask_f = all_g.lt(percentiles.to(self.device)).float()
-
-            all_f_muted = all_f * mask_f
-            all_p_muted = self.head(all_f_muted)
-
-            all_s = F.softmax(all_p, dim=1)
-            all_s_muted = F.softmax(all_p_muted, dim=1)
-            changes = (all_s * all_o).sum(1) - (all_s_muted * all_o).sum(1)
-            percentile = np.percentile(changes.detach().cpu(), self.drop_b)
-            mask_b = changes.lt(percentile).float().view(-1, 1)
-            mask = torch.logical_or(mask_f, mask_b).float()
-
-            all_p_muted_again = self.head(all_f * mask)
             
-            loss = self.criterion(all_p_muted_again, y)
-            
-            return loss
-    
-        elif self.meth == 'CORAL': # MMD variant ###############################################################
-            objective = 0
-            penalty = 0
-            mmd_lambda = 0.1
-            nmb = 3
+            [x_adr, x_ce], [branch_out, b2_out], fms = self.forward_features(all_x)
+            y_ce = self.head(x_ce)
+            y_adr = self.head(x_adr)
                         
-            features = [self.forward_features(xi) for xi, _ in x]
-            classifs = [self.head(fi) for fi in features]
-            targets = [yi for _, yi in x]
-                        
-            for i in range(nmb):
-                objective += self.criterion(classifs[i], targets[i])
-                for j in range(i + 1, nmb):
-                    penalty += self.mmd(features[i], features[j])
-                    
-            objective /= nmb
-            penalty /= (nmb * (nmb - 1) / 2)
-                
-            if torch.is_tensor(penalty):
-                penalty = penalty.item()
-            
-            loss = objective + (mmd_lambda*penalty)
+            _, cls_pred = y_ce.max(dim=1)
+            cls_loss_ce = self.criterion(y_ce, all_y)
+            cls_loss_adr = self.criterion(y_adr, all_y)
+            cls_loss = .5 * (cls_loss_ce + cls_loss_adr)
+            """
+            Inter-ADR
+            """
+            if random.random() < 0.0:
+                t_fms, t_cls_pred = [], []
+                with torch.no_grad():
+                    for teacher in self.teachers:
+                        teacher.eval()
+                        [t_x_adr, t_x_ce], _, t_fms_0 = teacher.forward_features(all_x)
+                        t_y_ce = teacher.head(t_x_ce)
+                        t_y_adr = teacher.head(t_x_adr)
 
-            return loss   
-
-        elif self.meth == 'CausIRL_CORAL': # CORAL variant ######################################################
-            objective = 0
-            penalty = 0
-            mmd_gamma = 1
-            nmb = len(x)
-
-            first = None
-            second = None
-
-            features = [self.forward_features(xi) for xi, _ in x]
-            classifs = [self.head(fi) for fi in features]
-            targets = [yi for _, yi in x]
-            
-            for i in range(nmb):
-                objective += self.criterion(classifs[i] + 1e-16, targets[i])
-                slice = np.random.randint(0, len(features[i]))
-                if first is None:
-                    first = features[i][:slice]
-                    second = features[i][slice:]
-                else:
-                    first = torch.cat((first, features[i][:slice]), 0)
-                    second = torch.cat((second, features[i][slice:]), 0)
-            if len(first) > 1 and len(second) > 1:
-                penalty = torch.nan_to_num(self.mmd(first, second))
+                        _, t_cls_pred_0 = t_y_ce.max(dim=1)
+                        t_fms.append(t_fms_0)
+                        t_cls_pred.append(t_cls_pred_0)
+                dir_loss, dvr_loss = Inter_ADR(t_cls_pred, cls_pred, t_fms, fms, all_y, self.device)
+                inter_loss = dir_loss * 200 - dvr_loss
             else:
-                penalty = torch.tensor(0)
-            objective /= nmb
+                inter_loss = 0
+            """
+            Intra-ADR
+            """
+            if random.random() < 0.2:
+                intra_loss = (1.0 - torch.mean(branch_out)) * 0.05
+            else:
+                intra_loss = 0
 
+            loss = cls_loss + intra_loss + inter_loss #* 0.1
 
-            if torch.is_tensor(penalty):
-                penalty = penalty.item()
-                
-            #print(objective, penalty)
-            return objective + mmd_gamma*penalty
-
+            return loss
         
-        elif self.meth == 'CAD':
-            all_x = torch.cat([x for x, y in x]).cuda()
-            all_y = torch.cat([y for x, y in x]).cuda()
-            all_z = self.forward_features(all_x)
-            all_d = torch.cat([
-                torch.full((x.shape[0],), i, dtype=torch.int64, device=self.device)
-                for i, (x, y) in enumerate(x)
-            ])
-
-            bn_loss = self.bn_loss(all_z, all_y, all_d)
-            clf_out = self.head(all_z)
-            clf_loss = self.criterion(clf_out, all_y) 
-            total_loss = clf_loss + 1e-5 * bn_loss
-            return total_loss
         
-        else: # Baseline
+        elif self.meth == None: # Baseline
             all_x = torch.cat([x for x, y in x]).cuda()
             all_y = torch.cat([y for x, y in x]).cuda()
             
-            all_p = self.forward_features(all_x)
-            loss = self.criterion(self.head(all_p), all_y)
+            [_, all_f], _, _ = self.forward_features(all_x)
+            loss = self.criterion(self.head(all_f), all_y)
             
             return loss
         
-
+        else:
+            print('Unknown DG Methodology!')
+            raise
+        
         
 
 def _init_vit_weights(module: nn.Module, name: str = '', head_bias: float = 0., jax_impl: bool = False):
@@ -689,7 +436,7 @@ def _load_weights(model: VisionTransformer, checkpoint_path: str, prefix: str = 
     if isinstance(getattr(model.pre_logits, 'fc', None), nn.Linear) and f'{prefix}pre_logits/bias' in w:
         model.pre_logits.fc.weight.copy_(_n2p(w[f'{prefix}pre_logits/kernel']))
         model.pre_logits.fc.bias.copy_(_n2p(w[f'{prefix}pre_logits/bias']))
-    for i, block in enumerate(model.blocks.children()):
+    for i, block in enumerate(model.blocks):
         block_prefix = f'{prefix}Transformer/encoderblock_{i}/'
         mha_prefix = block_prefix + 'MultiHeadDotProductAttention_1/'
         block.norm1.weight.copy_(_n2p(w[f'{block_prefix}LayerNorm_0/scale']))
@@ -772,7 +519,7 @@ def _create_vision_transformer(variant, pretrained=True, default_cfg=None, **kwa
 
 
 @register_model
-def vit_base_patch16_224(pretrained=False, **kwargs):
+def vit_base_patch16_224_ADDG(pretrained=False, **kwargs):
     """ ViT-Base (ViT-B/16) from original paper (https://arxiv.org/abs/2010.11929).
     ImageNet-1k weights fine-tuned from in21k @ 224x224, source https://github.com/google-research/vision_transformer.
     """
@@ -781,26 +528,10 @@ def vit_base_patch16_224(pretrained=False, **kwargs):
     return model
 
 @register_model
-def deit_base_patch16_224(pretrained=False, **kwargs):
+def deit_base_patch16_224_ADDG(pretrained=False, **kwargs):
     """ DeiT base model @ 224x224 from paper (https://arxiv.org/abs/2012.12877).
     ImageNet-1k weights from https://github.com/facebookresearch/deit.
     """
     model_kwargs = dict(patch_size=16, embed_dim=768, depth=12, num_heads=12, **kwargs)
     model = _create_vision_transformer('deit_base_patch16_224', pretrained=pretrained, **model_kwargs)
     return model
-
-def random_pairs_of_minibatches(minibatches):
-    perm = torch.randperm(len(minibatches)).tolist()
-    pairs = []
-
-    for i in range(len(minibatches)):
-        j = i + 1 if i < (len(minibatches) - 1) else 0
-
-        xi, yi = minibatches[perm[i]][0], minibatches[perm[i]][1]
-        xj, yj = minibatches[perm[j]][0], minibatches[perm[j]][1]
-
-        min_n = min(len(xi), len(xj))
-
-        pairs.append(((xi[:min_n], yi[:min_n]), (xj[:min_n], yj[:min_n])))
-
-    return pairs

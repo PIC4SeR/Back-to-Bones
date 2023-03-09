@@ -17,6 +17,7 @@ class Trainer:
         self.device = device
         self.trial = trial
             
+        # Model
         self.model, self.args = get_model(self.args)
         self.model = torch.nn.DataParallel(self.model, device_ids=[self.args.cuda], output_device=self.device)
      
@@ -25,18 +26,22 @@ class Trainer:
         if self.args.load_model:
             self.model.load_state_dict(torch.load(self.save_model_path))
         
-        self.args.batch_size = self.args.batch_size // 3 
-        self.source_loader, self.val_loader = data_helper.get_dataset_list(self.args)
-        self.len_dataloader = -1
-
-        self.target_loader = data_helper.get_test_dataloader(self.args)
-        self.test_loaders = {"val": self.val_loader, "test": self.target_loader}
-
-        if self.args.verbose:
-            print("Dataset size: train %d, val %d, test %d" % (
-            len(self.val_loader.dataset)*9, len(self.val_loader.dataset),
-            len(self.target_loader.dataset)))
+        # Data
+        if self.args.dg:
+            self.args.batch_size = self.args.batch_size // 3 
+            self.target_loader = data_helper.get_test_dataloader(self.args)
+        else:
+            self.target_loader = []
             
+        self.source_loader, self.val_loader = data_helper.get_dataset_list(self.args)
+        #self.len_dataloader = -1
+        self.test_loaders = {"val": self.val_loader, "test": self.target_loader}
+        
+        if self.args.verbose:
+            t_len = len(self.target_loader.dataset) if self.args.dg else 0
+            print(f"Dataset size: train {len(self.val_loader.dataset)*9}, val {len(self.val_loader.dataset)}, test {t_len}")
+            
+        # Optimizer
         self.optimizer, self.scheduler = get_optim_and_scheduler(network=self.model, epochs=self.args.epochs, 
                                                                  lr=self.args.lr, nesterov=self.args.nesterov, 
                                                                  sched=self.args.lr_scheduler)      
@@ -68,13 +73,14 @@ class Trainer:
         self.model.eval()
         with torch.no_grad():
             for phase, loader in self.test_loaders.items():
-                total = len(loader.dataset)
-
-                class_correct = self.do_test(loader)
-
-                class_acc = float(class_correct) / total
+                if loader:  
+                    total = len(loader.dataset)
+                    class_correct = self.do_test(loader)
+                    class_acc = float(class_correct) / total
+                    
                 self.logger.log_test(phase, {"class": class_acc})
                 self.results[phase][self.current_epoch] = class_acc
+                
                 if self.trial is not None:
                     self.trial.report(class_acc, epoch)
                     if self.trial.should_prune():
@@ -124,9 +130,9 @@ class Trainer:
     
 def main():
     args = get_args()
-    print(args)
     args = data_helper.get_source_domains(args)
-    
+    print(args)
+
     device = torch.cuda.set_device(args.cuda)
     device = 'cuda' if torch.cuda.is_available() else 'cpu'
     
@@ -136,8 +142,16 @@ def main():
         print(f'''Training: model={args.network}, bs={args.batch_size}, lr={args.lr}, scheduler={args.lr_scheduler},
           epochs={args.epochs}, cuda={args.cuda}, target={args.target}, meth={args.meth}''')
     
-    trainer.do_training()
-
+    if args.training:
+        trainer.do_training()
+    else:        
+        trainer.model.load_state_dict(torch.load(trainer.save_model_path))
+        trainer.model.eval()
+        with torch.no_grad():
+                    total = len(trainer.target_loader.dataset)
+                    class_correct = trainer.do_test(trainer.target_loader)
+                    class_acc = float(class_correct) / total
+                    print(class_acc)
 
 if __name__ == "__main__":
     torch.backends.cudnn.benchmark = True

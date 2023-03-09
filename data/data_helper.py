@@ -137,4 +137,7 @@ def get_source_domains(args):
         else:
             raise Exception(f"Unknown domain {args.target}")
             
+    if not args.dg:
+        args.source = [args.target] 
+        
     return args

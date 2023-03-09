@@ -65,11 +65,13 @@ def get_args():
     # Utils
     parser.add_argument('--config', type=open, action=LoadFromFile, default='utils/config.txt')
     parser.add_argument("--cuda", default=0, type=int, help="Select cuda device")
-    parser.add_argument("--num_workers", default=4, type=int, help="Select number of workers")
+    parser.add_argument("--num_workers", default=24, type=int, help="Select number of workers")
     parser.add_argument("--log_path", default='logs/', help="log directory")
     parser.add_argument("--verbose", default=False, type=bool, help="verbose")
+    parser.add_argument("--training", default=True, type=bool, help="train")
     
     # Dataset
+    parser.add_argument("--dg", default=1, type=bool, help="whether to train in DG mode")
     parser.add_argument("--data_path", default='../../dg-baselines-arena/Datasets/', help="dataset folder")
     parser.add_argument("--dataset", default='PACS', help="dataset name")
     parser.add_argument("--source", help="Source", nargs='+')

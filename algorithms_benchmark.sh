@@ -6,11 +6,11 @@ OfficeHome="OfficeHome"
 TerraIncognita="TerraIncognita"
 train="False"
     
-for model in "deit_base16"; do # "vit_base16" "deit_base16" "convit_base"...
+for model in "vit_base16"; do # "vit_base16" "deit_base16" "convit_base"...
 
     for meth in "ADDG"; do # None RSC Mixup CORAL...
 
-        for dataset in "VLCS" "OfficeHome"; do # "PACS" "VLCS" "OfficeHome" "TerraIncognita"
+        for dataset in "TerraIncognita"; do # "PACS" "VLCS" "OfficeHome" "TerraIncognita"
             
             if [ "$dataset" = "$PACS" ]; then
                 domains="photo art_painting cartoon sketch" # "photo art_painting cartoon sketch"
@@ -22,7 +22,7 @@ for model in "deit_base16"; do # "vit_base16" "deit_base16" "convit_base"...
                 domains="Product Art Clipart Real_World" # "Product Art Clipart Real_World"
                 lr=0.00001
             elif [ "$dataset" = "$TerraIncognita" ]; then
-                domains="100 38 43 46" # "100 38 43 46" 
+                domains="100 38" # "100 38 43 46" 
                 lr=0.000008
             fi
             
@@ -31,10 +31,9 @@ for model in "deit_base16"; do # "vit_base16" "deit_base16" "convit_base"...
                 for i in 1; do # Multiple runs
                 
                     date
-                    echo "Training: model=$model, meth=$meth, dataset=$dataset"
+                    echo "Training: model=$model, meth=$meth, dataset=$dataset, target=$target"
                 
-                    python3 train.py --lr $lr --lr_sched cos --network $model --batch_size 32 --epochs 30 --cuda 0 --dataset $dataset --target $target --optimizer Adam --meth $meth --verbose True
-                    #>> results/${model}_${dataset}_${meth}.txt
+                    python3 train.py --lr $lr --lr_sched cos --network $model --batch_size 32 --epochs 30 --cuda 0 --dataset $dataset --target $target --optimizer Adam --meth $meth --verbose True >> results/${model}_${dataset}_${target}_${meth}.txt
                     
                 done
             done

@@ -59,7 +59,7 @@ Pretrained weights are available at [this link](https://drive.google.com/drive/f
 ## Results
 <p>
     <img src="figures/results.png?raw=True" alt= “Results” width="1000">
-    <em>Baselines comparison of different backbones for DG. We report the average accuracy over three runs and the associated standard deviation for each model. We include the results achieved by DOMAINBED with ResNet50 for reference. The models
+    <em>Baselines comparison of different backbones for DG. We report the average accuracy over three runs and the associated standard deviation for each model. We include the results achieved by <span style="font-variant:small-caps;">DomainBed</span> with ResNet50 for reference. The models
 marked with * are pretrained on Imagenet21K instead of ImageNet1K. The rightmost column indicates the accuracy of the networks on ImageNet1K.</em>
 </p>
 

@@ -4,13 +4,13 @@ PACS="PACS"
 VLCS="VLCS"
 OfficeHome="OfficeHome"
 TerraIncognita="TerraIncognita"
-train="False"
+train="True"
     
-for model in "vit_base16" "deit_base16" "convit_base"; do # "vit_base16" "deit_base16" "convit_base"...
+for model in "vit_base16"; do # "vit_base16" "deit_base16" "convit_base"...
 
-    for meth in "None" "AGGD" "Mixup" "CORAL" "RSC"; do # None RSC Mixup CORAL...
+    for meth in "None"; do # None RSC Mixup CORAL...
 
-        for dataset in "PACS" "VLCS" "OfficeHome" "TerraIncognita"; do # "PACS" "VLCS" "OfficeHome" "TerraIncognita"
+        for dataset in "PACS"; do # "PACS" "VLCS" "OfficeHome" "TerraIncognita"
             
             if [ "$dataset" = "$PACS" ]; then
                 domains="photo art_painting cartoon sketch" # "photo art_painting cartoon sketch"
@@ -28,7 +28,7 @@ for model in "vit_base16" "deit_base16" "convit_base"; do # "vit_base16" "deit_b
             
             for target in $domains; do # Iterate on domains
         
-                for i in 1 2 3; do # Multiple runs
+                for i in 1; do # Multiple runs
                 
                     date
                     echo "Training: model=$model, meth=$meth, dataset=$dataset, target=$target"

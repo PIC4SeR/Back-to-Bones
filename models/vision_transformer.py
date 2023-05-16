@@ -265,17 +265,17 @@ class VisionTransformer(nn.Module):
 
     def forward_features(self, x):
         x = self.patch_embed(x)
-        print(x.shape)
+        #print(x.shape)
         cls_token = self.cls_token.expand(x.shape[0], -1, -1)  # stole cls_tokens impl from Phil Wang, thanks
         x = torch.cat((cls_token, x), dim=1)
-        print(x.shape)
+        #print(x.shape)
 
         x = self.pos_drop(x + self.pos_embed)
-        print(x.shape)
+        #print(x.shape)
         x = self.blocks(x)
-        print(x.shape)
+        #print(x.shape)
         x = self.norm(x)
-        print(x.shape)
+        #print(x.shape)
         return self.pre_logits(x[:, 0])
 
     def my_cdist(self, x1, x2):

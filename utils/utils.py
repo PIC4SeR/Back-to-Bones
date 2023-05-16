@@ -72,7 +72,7 @@ def get_args():
     
     # Dataset
     parser.add_argument("--dg", default=1, type=bool, help="whether to train in DG mode")
-    parser.add_argument("--data_path", default='../Datasets/', help="dataset folder")
+    parser.add_argument("--data_path", default='Datasets/', help="dataset folder")
     parser.add_argument("--dataset", default='PACS', help="dataset name")
     parser.add_argument("--source", help="Source", nargs='+')
     parser.add_argument("--target", help="Target")

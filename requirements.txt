@@ -1,0 +1,8 @@
+efficientnet_pytorch==0.7.1
+numpy==1.23.5
+optuna==3.0.3
+Pillow==9.3.0
+Pillow==9.5.0
+timm==0.5.4
+torch==1.13.0
+torchvision==0.14.0

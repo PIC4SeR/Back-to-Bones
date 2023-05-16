@@ -28,7 +28,7 @@ for model in "deit_base16"; do # "vit_base16" "deit_base16" "convit_base"...
             
             for target in $domains; do # Iterate on domains
         
-                for i in 1; do # Multiple runs
+                for i in 1 2 3; do # Multiple runs
                 
                     date
                     echo "Training: model=$model, meth=$meth, dataset=$dataset"

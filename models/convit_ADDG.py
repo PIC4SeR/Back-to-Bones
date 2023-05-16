@@ -282,6 +282,10 @@ class ConViT_ADDG(nn.Module):
         self.mixstyle = MixStyle(p=self.mixstyle_p, alpha=self.mixstyle_alpha)
         self.intra_adr = Intra_ADR(197, 768, Norm=self.mixstyle)
         self.gmp = nn.AdaptiveMaxPool2d(1)
+        if self.args.target == 'TerraIncognita':
+            self.w = 0.01
+        else:
+            self.w = 1
         
         if self.meth == 'ADDG':
             self.get_teachers()
@@ -403,7 +407,7 @@ class ConViT_ADDG(nn.Module):
             else:
                 intra_loss = 0
 
-            loss = cls_loss + intra_loss + inter_loss
+            loss = cls_loss + (intra_loss + inter_loss) * self.w
 
             return loss
         

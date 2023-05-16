@@ -21,7 +21,7 @@ Domain Generalization (DG) studies the capability of a deep learning model to ge
 *DG accuracy achieved by tested backbones compared with their performance on ImageNet, with error bars. Regardless of different architectures and priors, we find a strong linear correlation between the two metrics (ρ = 0.921).*
 
 ## Description
-This repository allows to train and test EdgeSRGAN on different Single Image Super-Resolution datasets using adversarial training combined with feature-wise Knowledge Distillation.
+This repository allows to train several backbones on different Domain Generalization datasets. The latest and most promising DG algorithms can be tested on the backbones to assess their efficacy.
 
 ## Installation
 We suggest to use a virtual environment (conda, venv, ...)
@@ -32,29 +32,16 @@ pip install -r requirements.txt
 
 ## Usage
 ### Configuration
-To set all the training/testing parameters modify the configuration file:
+To set all the training/testing configuration parameters can be set using the arguments described the file
 ```
-nano config.yaml
-```
-
-### Training
-Run the following command to train EdgeSRGAN on DIV2K:
-```
-python main.py
+utils/utils.py
 ```
 
-### Test
-Run the following command to test EdgeSRGAN on all the included SISR test datasets:
+### Benchmark
+Run the following command to benchmark backbones on different DG datasets:
 ```
-sh test.sh
+sh benchmark.sh
 ```
-
-### Weights
-Pretrained weights are available at [this link](https://drive.google.com/drive/folders/1E21iZ2apadpS--zh8PHRCM4DVuIKdOOJ?usp=sharing).
-
-* `edgesrgan.h5`: float32 TF weights
-* `edgesrgan.tflite`: float16 TFLite model for inference on CPU
-* `edgesrgan_int8.tflite`: int8 TFLite model for inference on Coral EdgeTPU
 
 ## Results
 <p>

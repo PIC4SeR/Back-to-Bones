@@ -1,14 +1,13 @@
 import argparse
-
 import numpy as np
 import optuna
 import torch
 
 from data import data_helper
 from models.optimizer_helper import get_optim_and_scheduler
+from models.utils import get_model
 from utils.utils import Logger, get_args
 
-from models.utils import get_model
 
 
 class Trainer:

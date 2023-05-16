@@ -189,8 +189,8 @@ class VisionTransformer(nn.Module):
         self.intra_adr = Intra_ADR(197, 768, Norm=self.mixstyle)
         self.gmp = nn.AdaptiveMaxPool2d(1)
         
-        if self.meth == 'ADDG':
-            self.get_teachers()
+        #if self.meth == 'ADDG':
+            #self.get_teachers()
 
         # Representation layer
         self.pre_logits = nn.Sequential(OrderedDict([
@@ -319,7 +319,7 @@ class VisionTransformer(nn.Module):
             else:
                 intra_loss = 0
 
-            loss = cls_loss + intra_loss + inter_loss #* 0.1
+            loss = cls_loss + (intra_loss + inter_loss) * 0.01
 
             return loss
         

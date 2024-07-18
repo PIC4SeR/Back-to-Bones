@@ -53,10 +53,16 @@ Baselines comparison of different backbones for DG. We report the average accura
 ## Acknowledgments
 This repository is intended for research scopes. If you use it for your research, please cite our paper using the following BibTeX:
 ```
-@article{angarano2022back,
-  title={Back-to-bones: Rediscovering the Role of Backbones in Domain Generalization},
-  author={Angarano, Simone and Martini, Mauro and Salvetti, Francesco and Mazzia, Vittorio and Chiaberge, Marcello},
-  journal={arXiv preprint arXiv:2209.01121},
-  year={2022}}
+@article{angarano2024back,
+title = {Back-to-Bones: Rediscovering the role of backbones in domain generalization},
+journal = {Pattern Recognition},
+volume = {156},
+pages = {110762},
+year = {2024},
+issn = {0031-3203},
+doi = {https://doi.org/10.1016/j.patcog.2024.110762},
+url = {https://www.sciencedirect.com/science/article/pii/S0031320324005132},
+author = {Simone Angarano and Mauro Martini and Francesco Salvetti and Vittorio Mazzia and Marcello Chiaberge},
+}
 ```
 We would like to thank the Interdepartmental Center for Service Robotics [PIC4SeR](https://pic4ser.polito.it), Politecnico di Torino.
